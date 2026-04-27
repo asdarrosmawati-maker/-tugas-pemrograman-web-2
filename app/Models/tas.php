@@ -6,8 +6,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 
-#[Fillable(['name', 'merek', 'jenis', 'harga', 'stok'])]
-class tas extends Model
+#[Fillable([
+    'name',
+    'merek',
+    'jenis',
+    'harga',
+    'stok',
+])]
+class Tas extends Model
 {
     /** @use HasFactory<\Database\Factories\TasFactory> */
     use HasFactory;

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\tas;
+use App\Models\Tas;
 use Illuminate\Http\Request;
 
 class TasController extends Controller
@@ -14,25 +14,39 @@ class TasController extends Controller
     {
         return view('produk-tas1.index', [
             'title' => 'produk tas',
-            'datatas' => tas::all(),
-
+            'datatas' => Tas::all(),
         ]);
     }
-
     /**
-     * Show the form for creating a new resource.
+     *  show the form for create a new resource
      */
     public function create()
     {
-        return view('produk-tas1.create', ['title' => 'Create produk tas']);
+        return view('produk-tas1.create', [
+            'title' => 'Create produk tas'
+        ]);
     }
-
     /**
-     * Store a newly created resource in storage.
+     * store a newly created resource in storage
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name'  => 'required|max:255',
+            'merek' => 'required|max:255',
+            'jenis' => 'required|max:255',
+            'harga' => 'required|numeric',
+            'stok'  => 'required|numeric|max:5',
+
+        ], [
+            'stok.required' => 'stok wajib ada',
+
+        ]);
+
+        Tas::create($validated);
+
+        return redirect()->route('tas.index')
+            ->with('success', 'Data berhasil ditambahkan');
     }
 
     /**

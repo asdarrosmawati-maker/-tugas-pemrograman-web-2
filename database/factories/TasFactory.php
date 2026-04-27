@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\tas;
+use App\Models\Tas;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
