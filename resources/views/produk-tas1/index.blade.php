@@ -24,6 +24,10 @@
 
                 <a href="{{ route('produk-tas.edit', $tas) }}" class="btn btn-warning btn-sm">Edit
                 </a>
+                <form action="{{ route('produk-tas.destroy', $tas) }}" method="POST" class="d-inline"> @method('DELETE')
+                    @csrf <button type="submit"
+                        class="btn btn-danger btn-sm"onclick="return confirm('ANDA YAKIN')">Delete</button>
+                </form>
             </li>
         @endforeach
     </ul>

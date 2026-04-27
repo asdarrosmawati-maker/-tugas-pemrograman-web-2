@@ -110,6 +110,9 @@ class TasController extends Controller
      */
     public function destroy(tas $tas)
     {
-        //
+        $tas->delete($tas);
+
+        return redirect()->route('tas.index')
+            ->with('success', 'Data berhasil dihapus');
     }
 }
