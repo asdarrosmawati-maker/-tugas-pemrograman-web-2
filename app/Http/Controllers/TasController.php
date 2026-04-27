@@ -13,7 +13,7 @@ class TasController extends Controller
     public function index()
     {
         return view('produk-tas1.index', [
-            'title' => 'produk tas',
+            'title' => 'produk Tas',
             'datatas' => Tas::all(),
         ]);
     }
@@ -23,7 +23,7 @@ class TasController extends Controller
     public function create()
     {
         return view('produk-tas1.create', [
-            'title' => 'Create produk tas'
+            'title' => 'Create produk Tas'
         ]);
     }
     /**
@@ -39,6 +39,13 @@ class TasController extends Controller
             'stok'  => 'required|numeric|max:5',
 
         ], [
+            'name.required' => 'Nama tidak boleh kosong',
+            'name.max' => 'Nama tidak boleh lebih dari :max karakter',
+            'merek.required' => 'Merek tidak boleh kosong',
+            'merek.max' => 'Merek tidak boleh lebih dari :max karakter',
+            'jenis.required' => 'Jenis tidak boleh kosong',
+            'jenis.max' => 'Jenis tidak boleh lebih dari :max karakter',
+            'harga.required' => 'Harga wajib ada',
             'stok.required' => 'stok wajib ada',
 
         ]);
@@ -60,17 +67,42 @@ class TasController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(tas $tas)
+    public function edit(Tas $tas)
     {
-        //
+        return view('produk-tas1.edit', [
+            'title' => 'Edit Tas',
+            'tas' => $tas,
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, tas $tas)
+    public function update(Request $request, Tas $tas)
     {
-        //
+        $validated = $request->validate([
+            'name'  => 'required|max:255',
+            'merek' => 'required|max:255',
+            'jenis' => 'required|max:255',
+            'harga' => 'required|numeric',
+            'stok'  => 'required|numeric|max:5',
+
+        ], [
+            'name.required' => 'Nama tidak boleh kosong',
+            'name.max' => 'Nama tidak boleh lebih dari :max karakter',
+            'merek.required' => 'Merek tidak boleh kosong',
+            'merek.max' => 'Merek tidak boleh lebih dari :max karakter',
+            'jenis.required' => 'Jenis tidak boleh kosong',
+            'jenis.max' => 'Jenis tidak boleh lebih dari :max karakter',
+            'harga.required' => 'Harga wajib ada',
+            'stok.required' => 'stok wajib ada',
+
+        ]);
+
+        $tas->update($validated);
+
+        return redirect()->route('tas.index')
+            ->with('success', 'Data berhasil diupdate');
     }
 
     /**

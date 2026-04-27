@@ -21,6 +21,9 @@
                 {{ $tas->jenis }} -
                 {{ $tas->harga }} -
                 {{ $tas->stok }}
+
+                <a href="{{ route('produk-tas.edit', $tas) }}" class="btn btn-warning btn-sm">Edit
+                </a>
             </li>
         @endforeach
     </ul>
