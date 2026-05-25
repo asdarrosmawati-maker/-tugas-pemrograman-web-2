@@ -25,10 +25,19 @@
     <ul class="list-group">
         @foreach ($pembelis as $pembeli)
             <li class="list-group-item">
-                {{ $pembelis->firstItem() + $loop->index }}.
-                {{ $pembeli->nama }} -
-                {{ $pembeli->alamat }} -
-                {{ $pembeli->no_hp }}
+                <strong>{{ $pembelis->firstItem() + $loop->index }}.</strong>
+                {{ $pembeli->nama }} - {{ $pembeli->alamat }} - {{ $pembeli->no_hp }}
+
+                {{-- Tombol Edit --}}
+                <a href="{{ route('pembeli.edit', $pembeli) }}" class="btn btn-warning btn-sm ms-2">Edit</a>
+
+                {{-- Tombol Delete --}}
+                <form action="{{ route('pembeli.destroy', $pembeli) }}" method="POST" class="d-inline">
+                    @method('DELETE')
+                    @csrf
+                    <button type="submit" class="btn btn-danger btn-sm"
+                        onclick="return confirm('Yakin ingin menghapus data ini?')">Delete</button>
+                </form>
             </li>
         @endforeach
     </ul>

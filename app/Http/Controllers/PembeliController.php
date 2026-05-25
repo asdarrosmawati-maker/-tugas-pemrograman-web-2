@@ -64,7 +64,10 @@ class PembeliController extends Controller
      */
     public function edit(Pembeli $pembeli)
     {
-        //
+        return view('pembeli.edit', [
+        'title' => 'Edit Pembeli',
+        'pembeli' => $pembeli
+    ]);
     }
 
     /**
@@ -72,8 +75,16 @@ class PembeliController extends Controller
      */
     public function update(Request $request, Pembeli $pembeli)
     {
-        //
-    }
+        $validated = $request->validate([
+        'nama' => 'required|string|max:100',
+        'alamat' => 'required|string|max:255',
+        'no_hp' => 'required|string|max:20',
+    ]);
+
+    $pembeli->update($validated);
+
+    return redirect()->route('pembeli.index')->with('success', 'Data pembeli berhasil diubah');
+}
 
     /**
      * Remove the specified resource from storage.
