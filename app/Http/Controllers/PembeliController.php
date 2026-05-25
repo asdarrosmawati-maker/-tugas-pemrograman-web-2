@@ -10,11 +10,13 @@ class PembeliController extends Controller
     public function index()
     {
         $pembelis = Pembeli::latest();
-        $keyword = request('keyword');
+        $keyword = request('keyword'); // ambil input dari form
 
-        if ($keyword) {
-            $pembelis->where('nama', 'like', '%'.$keyword.'%')
-                ->orWhere('no_hp', 'like', '%'.$keyword.'%');
+        if (!empty($keyword)) {
+            $pembelis->where(function ($query) use ($keyword) {
+                $query->where('nama', 'like', '%' . $keyword . '%')
+                      ->orWhere('no_hp', 'like', '%' . $keyword . '%');
+            });
         }
 
         return view('pembeli.index', [
@@ -28,7 +30,9 @@ class PembeliController extends Controller
      */
     public function create()
     {
-        //
+        return view('pembeli.create', [
+        'title' => 'Tambah Pembeli'
+    ]);
     }
 
     /**
@@ -36,8 +40,16 @@ class PembeliController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $validated = $request->validate([
+        'nama' => 'required|string|max:100',
+        'alamat' => 'required|string|max:255',
+        'no_hp' => 'required|string|max:20',
+    ]);
+
+    Pembeli::create($validated);
+
+    return redirect()->route('pembeli.index')->with('success', 'Data pembeli berhasil ditambahkan');
+}
 
     /**
      * Display the specified resource.
