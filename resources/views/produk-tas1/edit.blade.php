@@ -2,7 +2,7 @@
 
     <x-slot:title>{{ $title }}</x-slot>
 
-    <form method="POST" action="{{ route('produk-tas.edit', $tas) }}">
+    <form method="POST" action="{{ route('produk-tas.update', $tas) }}">
         @csrf
         @method('PUT')
 
@@ -16,7 +16,7 @@
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Merek</label>
+            <label class="form-label">Merek vhkbjlnk</label>
             <input type="text" name="merek" class="form-control @error('merek') is-invalid @enderror"
                 value="{{ old('merek', $tas->merek) }}">
             @error('merek')

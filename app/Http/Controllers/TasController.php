@@ -13,30 +13,32 @@ class TasController extends Controller
     public function index()
     {
         return view('produk-tas1.index', [
-            'title' => 'produk Tas',
+            'title' => 'PRODUK TAS',
             'datatas' => Tas::all(),
         ]);
     }
+
     /**
      *  show the form for create a new resource
      */
     public function create()
     {
         return view('produk-tas1.create', [
-            'title' => 'Create produk Tas'
+            'title' => 'Create produk Tas',
         ]);
     }
+
     /**
      * store a newly created resource in storage
      */
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name'  => 'required|max:255',
+            'name' => 'required|max:255',
             'merek' => 'required|max:255',
             'jenis' => 'required|max:255',
             'harga' => 'required|numeric',
-            'stok'  => 'required|numeric|max:5',
+            'stok' => 'required|numeric|max:5',
 
         ], [
             'name.required' => 'Nama tidak boleh kosong',
@@ -59,7 +61,7 @@ class TasController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(tas $tas)
+    public function show(Tas $tas)
     {
         //
     }
@@ -81,11 +83,11 @@ class TasController extends Controller
     public function update(Request $request, Tas $tas)
     {
         $validated = $request->validate([
-            'name'  => 'required|max:255',
+            'name' => 'required|max:255',
             'merek' => 'required|max:255',
             'jenis' => 'required|max:255',
             'harga' => 'required|numeric',
-            'stok'  => 'required|numeric|max:5',
+            'stok' => 'required|numeric|max:5',
 
         ], [
             'name.required' => 'Nama tidak boleh kosong',
@@ -108,7 +110,7 @@ class TasController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(tas $tas)
+    public function destroy(Tas $tas)
     {
         $tas->delete($tas);
 

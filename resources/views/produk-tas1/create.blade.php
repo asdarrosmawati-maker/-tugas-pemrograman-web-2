@@ -2,7 +2,7 @@
 
     <x-slot:title>{{ $title }}</x-slot>
 
-    <form method="POST" action="{{ route('produk-tas1.store') }}">
+    <form method="POST" action="{{ route('produk-tas.store') }}">
         @csrf
 
         <div class="mb-3">

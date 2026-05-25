@@ -10,7 +10,7 @@
     @endif
 
 
-    <a class="btn btn-primary mb-3" href="{{ route('tas.create') }}">Create</a>
+    <a class="btn btn-primary mb-3" href="{{ route('produk-tas.create') }}">Create</a>
 
     <ul class="list-group">
         @foreach ($datatas as $tas)
