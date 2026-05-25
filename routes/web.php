@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\TasController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PembeliController;
 
 Route::get('/', function () {
     echo 'ok';
@@ -16,3 +17,5 @@ Route::post('/produk-tas1/store',  [TasController::class, 'store'])->name('produ
 Route::get('/produk-tas1/{tas}edit',  [TasController::class, 'edit'])->name('produk-tas.edit');
 Route::put('/produk-tas1/{tas}',  [TasController::class, 'update'])->name('produk-tas.update');
 Route::delete('/produk-tas1/{tas}',  [TasController::class, 'destroy'])->name('produk-tas.destroy');
+
+Route::resource('pembeli', PembeliController::class);

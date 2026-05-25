@@ -7,12 +7,20 @@ use Illuminate\Http\Request;
 
 class PembeliController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $pembelis = Pembeli::latest();
+        $keyword = request('keyword');
+
+        if ($keyword) {
+            $pembelis->where('nama', 'like', '%'.$keyword.'%')
+                ->orWhere('no_hp', 'like', '%'.$keyword.'%');
+        }
+
+        return view('pembeli.index', [
+            'title' => 'Pembeli',
+            'pembelis' => $pembelis->paginate(5)->withQueryString(),
+        ]);
     }
 
     /**
