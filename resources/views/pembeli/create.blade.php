@@ -28,7 +28,7 @@
             <input type="text" class="form-control" id="no_hp" name="no_hp" value="{{ old('no_hp') }}">
         </div>
 
-        <button type="submit" class="btn btn-success">Simpan</button>
-        <a href="{{ route('pembeli.index') }}" class="btn btn-secondary">Cancel</a>
+        <button type="submit" class="btn btn-warning">Submit</button>
+        <a href="{{ route('pembeli.index') }}" class="btn btn-success">Cancel</a>
     </form>
 </x-app>

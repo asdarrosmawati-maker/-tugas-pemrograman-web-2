@@ -56,7 +56,13 @@ class PembeliController extends Controller
      */
     public function show(Pembeli $pembeli)
     {
-        //
+            $transaksis = $pembeli->transaksis()->latest()->paginate(10);
+
+    return view('pembeli.show', [
+        'title' => 'Detail Pembeli',
+        'pembeli' => $pembeli,
+        'transaksis' => $transaksis,
+    ]);
     }
 
     /**

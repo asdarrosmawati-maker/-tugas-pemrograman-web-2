@@ -1,47 +1,39 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>agilyaiz</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ $title ?? 'Penjualan Tas' }}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">PENJUALAN TAS</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
-                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav">
-                    <a class="nav-link active" aria-current="page" href="#">Pembeli</a>
-                    <a class="nav-link" href="#">Transaksi</a>
-                </div>
+    {{-- Navbar --}}
+    <nav class="navbar navbar-expand-lg bg-info.bg-gradient navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#">PENJUALAN</a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="{{ route('produk-tas.index') }}">Produk tas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('pembeli.index') }}">Pembeli</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('transaksi.index') }}">Transaksi</a></li>
+                </ul>
             </div>
         </div>
     </nav>
 
-    {{-- page title --}}
-    <div class="bg-primary py-5 text-center text-white">
-        <h1 class="fw-bold">{{ $title }}</h1>
+    {{-- Header --}}
+    <div class="text-center py-3 bg-primary text-white">
+        <h2>{{ $title }}</h2>
     </div>
 
-
-    {{-- main app --}}
-    <div class="container my-5">
-        <h1 class="fw-bold">{{ $slot }}</h1>
-
+    {{-- Konten --}}
+    <div class="container my-4">
+        {{ $slot }}
     </div>
 
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous">
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

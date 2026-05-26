@@ -3,11 +3,12 @@
 use App\Http\Controllers\TasController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PembeliController;
+use App\Http\Controllers\TransaksiController;
 
 Route::get('/', function () {
     echo 'ok';
 });
- Route::resource('tas', TasController::class);
+
 
 Route::get('/', [TasController::class, 'index'])->name('produk-tas.index');
 
@@ -19,3 +20,4 @@ Route::put('/produk-tas1/{tas}',  [TasController::class, 'update'])->name('produ
 Route::delete('/produk-tas1/{tas}',  [TasController::class, 'destroy'])->name('produk-tas.destroy');
 
 Route::resource('pembeli', PembeliController::class);
+Route::resource('transaksi', TransaksiController::class);

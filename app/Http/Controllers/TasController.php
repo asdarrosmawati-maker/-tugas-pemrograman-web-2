@@ -54,7 +54,7 @@ class TasController extends Controller
 
         Tas::create($validated);
 
-        return redirect()->route('tas.index')
+        return redirect()->route('produk-tas.index')
             ->with('success', 'Data berhasil ditambahkan');
     }
 
@@ -72,7 +72,7 @@ class TasController extends Controller
     public function edit(Tas $tas)
     {
         return view('produk-tas1.edit', [
-            'title' => 'Edit Tas',
+            'title' => 'Edit produk Tas',
             'tas' => $tas,
         ]);
     }
@@ -103,7 +103,7 @@ class TasController extends Controller
 
         $tas->update($validated);
 
-        return redirect()->route('tas.index')
+        return redirect()->route('produk-tas.index')
             ->with('success', 'Data berhasil diupdate');
     }
 
@@ -112,9 +112,9 @@ class TasController extends Controller
      */
     public function destroy(Tas $tas)
     {
-        $tas->delete($tas);
+        $tas->delete();
 
-        return redirect()->route('tas.index')
+        return redirect()->route('produk-tas.index')
             ->with('success', 'Data berhasil dihapus');
     }
 }

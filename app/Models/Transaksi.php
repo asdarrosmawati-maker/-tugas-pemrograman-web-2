@@ -20,7 +20,8 @@ class Transaksi extends Model
 
 
     public function pembeli()
-    {
-        return $this->belongsTo(Pembeli::class);
-    }
+{
+    return $this->belongsTo(Pembeli::class);
+}
+
 }

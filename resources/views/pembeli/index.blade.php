@@ -16,8 +16,8 @@
                 <input type="text" class="form-control" id="keyword" name="keyword"
                     placeholder="Search pembeli name ..." value="{{ request('keyword') }}">
             </div>
-            <div class="col-md-2">
-                <button type="submit" class="btn btn-success">Cari</button>
+            <div class="col-md-4">
+                <button type="submit" class="btn btn-success">Search</button>
             </div>
         </div>
     </form>
@@ -27,6 +27,9 @@
             <li class="list-group-item">
                 <strong>{{ $pembelis->firstItem() + $loop->index }}.</strong>
                 {{ $pembeli->nama }} - {{ $pembeli->alamat }} - {{ $pembeli->no_hp }}
+
+                {{-- Tombol Detail --}}
+                <a href="{{ route('pembeli.show', $pembeli) }}" class="btn btn-info btn-sm ms-2">Detail</a>
 
                 {{-- Tombol Edit --}}
                 <a href="{{ route('pembeli.edit', $pembeli) }}" class="btn btn-warning btn-sm ms-2">Edit</a>

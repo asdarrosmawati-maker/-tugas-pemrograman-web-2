@@ -50,7 +50,7 @@
             @enderror
         </div>
 
-        <a class="btn btn-warning" href="{{ route('tas.index') }}">Cancel</a>
+        <a class="btn btn-warning" href="{{ route('produk-tas.index') }}">Cancel</a>
         <button type="submit" class="btn btn-primary">Submit</button>
 
     </form>
