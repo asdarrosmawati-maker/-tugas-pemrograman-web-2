@@ -9,19 +9,21 @@ class Transaksi extends Model
 {
     use HasFactory;
 
-    
+    // nama tabel (opsional kalau sesuai konvensi)
+    protected $table = 'transaksis';
+
+    // kolom yang bisa diisi (mass assignment)
     protected $fillable = [
-        'pembeli_id',
+        'pembeli_nama',
         'kode_transaksi',
         'tanggal_transaksi',
         'jumlah_barang',
         'total_harga',
     ];
 
-
+    // relasi ke model Pembeli (many-to-one)
     public function pembeli()
-{
-    return $this->belongsTo(Pembeli::class);
-}
-
+    {
+        return $this->belongsTo(Pembeli::class);
+    }
 }
