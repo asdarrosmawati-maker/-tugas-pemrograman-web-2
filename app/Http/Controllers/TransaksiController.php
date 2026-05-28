@@ -10,27 +10,24 @@ class TransaksiController extends Controller
 {
     public function index(Request $request)
     {
-    // ambil input filter dari request
-        $filterPembeli = $request->input('pembeli_id');
+    
+    $transaksis = Transaksi::with('pembeli')->latest();
+        $keyword = request('keyword'); // ambil input dari form
 
-        // query transaksi dengan relasi pembeli
-        $query = Transaksi::with('pembeli')->latest();
-
-        // kalau ada filter pembeli
-        if ($filterPembeli) {
-            $query->where('pembeli_id', $filterPembeli);
+        if (!empty($keyword)) {
+            $transaksis->where(function ($query) use ($keyword) {
+                $query->where('kode_transaksi', 'like', '%' . $keyword . '%')
+                      ->orWhereHas('pembeli', function ($q) use ($keyword) {
+                          $q->where('nama', 'like', '%' . $keyword . '%');
+                      });
+            });
         }
-
-        // ambil hasil query (tanpa pagination sesuai permintaanmu)
-        $transaksi = $query->get();
 
         return view('transaksi.index', [
             'title' => 'Transaksi',
-            'transaksi' => $transaksi,
-            'pembeli' => Pembeli::all(), // untuk dropdown filter
+            'transaksis' => $transaksis->paginate(5)->withQueryString(),
         ]);
-}
-
+    }
     /**
      * Show the form for creating a new resource.
      */
@@ -113,6 +110,9 @@ class TransaksiController extends Controller
      */
     public function destroy(Transaksi $transaksi)
     {
-        //
+        $transaksi->delete();
+
+    return redirect()->route('transaksi.index')
+    ->with('success', 'Data transaksi berhasil dihapus');
     }
 }
