@@ -38,6 +38,9 @@
                     {{ $item->jumlah_barang }} -
                     {{ number_format($item->total_harga, 0, ',', '.') }}
 
+                    {{-- Tombol Detail --}}
+                    <a href="{{ route('transaksi.show', $item->id) }}" class="btn btn-sm btn-info">Detail</a>
+
                     {{-- tombol edit --}}
                     <a href="{{ route('transaksi.edit', $item->id) }}" class="btn btn-sm btn-warning">Edit</a>
 

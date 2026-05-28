@@ -6,28 +6,36 @@
     {{-- Data Pembeli --}}
     <h4>Data Pembeli</h4>
     <ul class="list-group mb-3">
-        <li class="list-group-item">Nama: {{ $pembeli->nama }}</li>
-        <li class="list-group-item">Created At: {{ $pembeli->created_at->format('d F Y H:i:s') }}</li>
-        <li class="list-group-item">Last Update: {{ $pembeli->updated_at->diffForHumans() }}</li>
+        <li class="list-group-item"><strong>Nama:</strong> {{ $pembeli->nama }}</li>
+        <li class="list-group-item"><strong>Alamat:</strong> {{ $pembeli->alamat }}</li>
+        <li class="list-group-item"><strong>No HP:</strong> {{ $pembeli->no_hp }}</li>
+        <li class="list-group-item"><strong>Created At:</strong> {{ $pembeli->created_at->format('d F Y H:i:s') }}</li>
+        <li class="list-group-item"><strong>Last Update:</strong> {{ $pembeli->updated_at->diffForHumans() }}</li>
     </ul>
 
     {{-- Data Transaksi --}}
     <h4 class="mt-4">Data Transaksi</h4>
-    <ul class="list-group">
-        @foreach ($transaksis as $transaksi)
-            <li class="list-group-item">
-                {{ $loop->iteration }}.
-                Pembeli ID: {{ $transaksi->pembeli_id }} |
-                Kode Transaksi: {{ $transaksi->kode_transaksi }} |
-                Tanggal: {{ \Carbon\Carbon::parse($transaksi->tanggal_transaksi)->format('d F Y') }} |
-                Jumlah Barang: {{ $transaksi->jumlah_barang }} |
-                Total Harga: Rp{{ number_format($transaksi->total_harga, 0, ',', '.') }}
-            </li>
-        @endforeach
-    </ul>
+    @if ($transaksis->isEmpty())
+        <div class="alert alert-info">Tidak ada transaksi untuk pembeli ini.</div>
+    @else
+        <ul class="list-group mb-3">
+            @foreach ($transaksis as $transaksi)
+                <li class="list-group-item">
+                    <strong>{{ $transaksis->firstItem() + $loop->index }}.</strong>
+                    Kode: {{ $transaksi->kode_transaksi }} |
+                    Tanggal: {{ \Carbon\Carbon::parse($transaksi->tanggal_transaksi)->format('d F Y') }} |
+                    Jumlah: {{ $transaksi->jumlah_barang }} |
+                    Harga: Rp{{ number_format($transaksi->total_harga, 0, ',', '.') }}
+                    <br>
+                    <a href="{{ route('transaksi.show', $transaksi) }}" class="btn btn-xs btn-info">Detail</a>
+                    <a href="{{ route('transaksi.edit', $transaksi) }}" class="btn btn-xs btn-warning">Edit</a>
+                </li>
+            @endforeach
+        </ul>
 
-    {{-- Pagination --}}
-    <div class="mt-3">
-        {{ $transaksis->links() }}
-    </div>
+        {{-- Pagination --}}
+        <div class="mt-3">
+            {{ $transaksis->links() }}
+        </div>
+    @endif
 </x-app>
