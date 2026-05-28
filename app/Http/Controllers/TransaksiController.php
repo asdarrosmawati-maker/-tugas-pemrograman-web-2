@@ -79,7 +79,11 @@ class TransaksiController extends Controller
      */
     public function edit(Transaksi $transaksi)
     {
-        //
+         return view('transaksi.edit', [
+        'title' => 'Edit Transaksi',
+        'transaksi' => $transaksi,
+        'pembeli' => Pembeli::all(), // kirim data pembeli untuk dropdown
+    ]);
     }
 
     /**
@@ -87,7 +91,21 @@ class TransaksiController extends Controller
      */
     public function update(Request $request, Transaksi $transaksi)
     {
-        //
+        $validated = $request->validate([
+            'pembeli_id'        => 'required|exists:pembelis,id',
+            'kode_transaksi'    => 'required|string|max:50|unique:transaksis,kode_transaksi,' . $transaksi->id,
+            'tanggal_transaksi' => 'required|date',
+            'jumlah_barang'     => 'required|integer|min:1',
+            'total_harga'       => 'required|numeric|min:0',
+        ]);
+
+        $pembeli = Pembeli::findOrFail($validated['pembeli_id']);
+        $validated['nama_pembeli'] = $pembeli->nama;
+
+        $transaksi->update($validated);
+
+        return redirect()->route('transaksi.index')
+            ->with('success', 'Data transaksi berhasil diperbarui');
     }
 
     /**
