@@ -9,6 +9,6 @@ class PembeliSeeder extends Seeder
 {
     public function run(): void
     {
-        Pembeli::factory()->count(10)->create();
+        Pembeli::factory()->count(500)->create();
     }
 }

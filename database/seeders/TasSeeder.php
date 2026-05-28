@@ -13,6 +13,6 @@ class TasSeeder extends Seeder
      */
     public function run(): void
     {
-        Tas::factory()->count(200)->create();
+        Tas::factory()->count(300)->create();
     }
 }

@@ -8,10 +8,15 @@ use App\Models\Pembeli;
 
 class TransaksiFactory extends Factory
 {
+    protected $model = Transaksi::class;
+
     public function definition(): array
     {
+        $pembeli = Pembeli::factory()->create();
+
         return [
-            'pembeli_id' => Pembeli::factory(),
+            'pembeli_id' => $pembeli->id,
+            'nama_pembeli' => $pembeli->nama,
             'kode_transaksi' => strtoupper($this->faker->bothify('TRX###??')),
             'tanggal_transaksi' => $this->faker->date(),
             'jumlah_barang' => $this->faker->numberBetween(1, 10),

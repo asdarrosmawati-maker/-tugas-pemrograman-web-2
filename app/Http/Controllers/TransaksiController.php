@@ -10,29 +10,25 @@ class TransaksiController extends Controller
 {
     public function index(Request $request)
     {
-        $keyword = $request->input('keyword');
-    $filterPembeli = $request->input('pembeli_id');
+    // ambil input filter dari request
+        $filterPembeli = $request->input('pembeli_id');
 
-    $query = Transaksi::with('pembeli')->latest();
+        // query transaksi dengan relasi pembeli
+        $query = Transaksi::with('pembeli')->latest();
 
-    if ($keyword) {
-        $query->where('kode_transaksi', 'like', "%{$keyword}%")
-              ->orWhereHas('pembeli', function ($q) use ($keyword) {
-                  $q->where('nama', 'like', "%{$keyword}%");
-              });
-    }
+        // kalau ada filter pembeli
+        if ($filterPembeli) {
+            $query->where('pembeli_id', $filterPembeli);
+        }
 
-    if ($filterPembeli) {
-        $query->where('pembeli_id', $filterPembeli);
-    }
+        // ambil hasil query (tanpa pagination sesuai permintaanmu)
+        $transaksi = $query->get();
 
-    $transaksi = $query->paginate(5)->withQueryString();
-
-    return view('transaksi.index', [
-        'title' => 'Data Transaksi',
-        'transaksi' => $transaksi,
-        'pembeli' => Pembeli::all(),
-    ]);
+        return view('transaksi.index', [
+            'title' => 'Transaksi',
+            'transaksi' => $transaksi,
+            'pembeli' => Pembeli::all(), // untuk dropdown filter
+        ]);
 }
 
     /**
@@ -40,7 +36,10 @@ class TransaksiController extends Controller
      */
     public function create()
     {
-        //
+         return view('transaksi.create', [
+            'title' => 'Tambah Transaksi',
+            'pembeli' => Pembeli::all(), // kirim data pembeli untuk dropdown
+        ]);
     }
 
     /**
@@ -48,7 +47,23 @@ class TransaksiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'pembeli_id'        => 'required|integer|exists:pembelis,id',
+            'kode_transaksi'    => 'required|string|max:50|unique:transaksis,kode_transaksi',
+            'tanggal_transaksi' => 'required|date',
+            'jumlah_barang'     => 'required|integer|min:1',
+            'total_harga'       => 'required|numeric|min:0',
+        ], [
+            'kode_transaksi.unique' => 'Kode transaksi sudah digunakan, silakan isi kode lain.',
+        ]);
+
+        $pembeli = Pembeli::findOrFail($validated['pembeli_id']);
+        $validated['nama_pembeli'] = $pembeli->nama;
+
+        Transaksi::create($validated);
+
+        return redirect()->route('transaksi.index')
+            ->with('success', 'Data transaksi berhasil ditambahkan');
     }
 
     /**

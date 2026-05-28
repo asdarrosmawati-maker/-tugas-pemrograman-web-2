@@ -14,16 +14,16 @@ class Transaksi extends Model
 
     // kolom yang bisa diisi (mass assignment)
     protected $fillable = [
-        'pembeli_nama',
+        'pembeli_id',
+        'nama_pembeli',
         'kode_transaksi',
         'tanggal_transaksi',
         'jumlah_barang',
         'total_harga',
     ];
 
-    // relasi ke model Pembeli (many-to-one)
     public function pembeli()
     {
-        return $this->belongsTo(Pembeli::class);
+        return $this->belongsTo(Pembeli::class, 'pembeli_id');
     }
 }

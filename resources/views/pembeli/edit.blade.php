@@ -32,7 +32,7 @@
                 value="{{ old('no_hp', $pembeli->no_hp) }}">
         </div>
 
-        <button type="submit" class="btn btn-warning">Submit</button>
         <a href="{{ route('pembeli.index') }}" class="btn btn-primary">Cancel</a>
+        <button type="submit" class="btn btn-warning">Submit</button>
     </form>
 </x-app>

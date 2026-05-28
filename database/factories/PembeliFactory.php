@@ -3,12 +3,12 @@
 namespace Database\Factories;
 
 use App\Models\Pembeli;
-namespace Database\Factories;
-
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class PembeliFactory extends Factory
 {
+    protected $model = Pembeli::class;
+
     public function definition(): array
     {
         return [
