@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Tas;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TasController extends Controller
 {
@@ -51,6 +52,15 @@ class TasController extends Controller
             'stok.required' => 'stok wajib ada',
 
         ]);
+    DB::beginTransaction();
+    try {
+        Tas::create($request->all()); // simpan data produk tas
+        DB::commit();
+        return redirect()->route('produk-tas.index')->with('success', 'Produk tas berhasil ditambahkan');
+    } catch (\Exception $e) {
+        DB::rollBack();
+        return back()->withErrors('Terjadi kesalahan: ' . $e->getMessage());
+    }
 
         Tas::create($validated);
 

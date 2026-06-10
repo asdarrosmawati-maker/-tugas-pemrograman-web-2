@@ -1,6 +1,7 @@
 <x-app>
     <x-slot:title>{{ $title }}</x-slot>
 
+
     <form method="POST" action="{{ route('produk-tas.store') }}">
         @csrf
 
