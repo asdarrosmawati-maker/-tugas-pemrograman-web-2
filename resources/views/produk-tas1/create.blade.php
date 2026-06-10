@@ -1,6 +1,10 @@
 <x-app>
     <x-slot:title>{{ $title }}</x-slot>
-
+    @if (session('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
 
     <form method="POST" action="{{ route('produk-tas.store') }}">
         @csrf

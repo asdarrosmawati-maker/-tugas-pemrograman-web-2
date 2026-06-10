@@ -56,16 +56,12 @@ class TasController extends Controller
     try {
         Tas::create($request->all()); // simpan data produk tas
         DB::commit();
-        return redirect()->route('produk-tas.index')->with('success', 'Produk tas berhasil ditambahkan');
+        return redirect()->route('produk-tas.index')->withSuccess('Data berhasil ditambahkan');
     } catch (\Exception $e) {
         DB::rollBack();
-        return back()->withErrors('Terjadi kesalahan: ' . $e->getMessage());
+        return redirect()->route('produk-tas.create')->withError('Data gagal ditambahkan: ' . $e->getMessage());
     }
 
-        Tas::create($validated);
-
-        return redirect()->route('produk-tas.index')
-            ->with('success', 'Data berhasil ditambahkan');
     }
 
     /**
@@ -111,12 +107,17 @@ class TasController extends Controller
 
         ]);
 
-        $tas->update($validated);
-
-        return redirect()->route('produk-tas.index')
-            ->with('success', 'Data berhasil diupdate');
+        DB::beginTransaction();
+    try {
+        $tas->update($validated); // gunakan hasil validasi
+        DB::commit();
+        return redirect()->route('produk-tas.index')->withSuccess('Data berhasil diupdate');
+    } catch (\Exception $e) {
+        DB::rollBack();
+        return redirect()->route('produk-tas.create')->withError('Terjadi kesalahan saat mengupdate produk tas' . $e->getMessage());
     }
 
+    }
     /**
      * Remove the specified resource from storage.
      */
