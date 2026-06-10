@@ -19,5 +19,9 @@ Route::get('/produk-tas1/{tas}edit',  [TasController::class, 'edit'])->name('pro
 Route::put('/produk-tas1/{tas}',  [TasController::class, 'update'])->name('produk-tas.update');
 Route::delete('/produk-tas1/{tas}',  [TasController::class, 'destroy'])->name('produk-tas.destroy');
 
+//soft delete
+Route::get('/produk-tas1/trash', [TasController::class, 'trash'])->name('produk-tas.trash');
+
+
 Route::resource('pembeli', PembeliController::class);
 Route::resource('transaksi', TransaksiController::class);

@@ -114,7 +114,7 @@ class TasController extends Controller
         return redirect()->route('produk-tas.index')->withSuccess('Data berhasil diupdate');
     } catch (\Exception $e) {
         DB::rollBack();
-        return redirect()->route('produk-tas.create')->withError('Terjadi kesalahan saat mengupdate produk tas' . $e->getMessage());
+        return redirect()->route('produk-tas.edit', $tas)->withError('Terjadi kesalahan saat mengupdate produk tas' . $e->getMessage());
     }
 
     }
@@ -128,4 +128,12 @@ class TasController extends Controller
         return redirect()->route('produk-tas.index')
             ->with('success', 'Data berhasil dihapus');
     }
+    //soft delete
+    public function trash()
+    {
+        return view('produk-tas1.trash', [
+            'title' => 'Trash produk Tas',
+            'datatas' => Tas::onlyTrashed()->get(),
+        ]);
+}
 }

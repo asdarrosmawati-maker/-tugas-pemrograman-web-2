@@ -18,6 +18,7 @@
                     <li class="nav-item"><a class="nav-link" href="{{ route('produk-tas.index') }}">Produk tas</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('pembeli.index') }}">Pembeli</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('transaksi.index') }}">Transaksi</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('produk-tas.trash') }}">Trash</a></li>
                 </ul>
             </div>
         </div>
