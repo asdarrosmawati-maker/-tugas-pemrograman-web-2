@@ -3,10 +3,12 @@
 
     {{-- SUCCESS --}}
     @if (session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
     @endif
 
-    <a class="btn btn-secondary mb-3" href="{{ route('produk-tas.index') }}">Kembali ke Index</a>
+    <a class="btn btn-primary mb-3" href="{{ route('produk-tas.create') }}">Create</a>
 
     <ul class="list-group">
         @forelse ($datatas as $tas)
@@ -17,14 +19,17 @@
                 {{ $tas->jenis }} -
                 {{ $tas->harga }} -
                 {{ $tas->stok }} -
-                {{ $tas->keterangan ?? '-' }}
+                <strong>{{ $tas->keterangan ?? 'keterangan' }}</strong> {{-- field baru --}}
 
-                {{-- Tombol restore & force delete akan ditambahkan di commit berikutnya --}}
+                <form action="{{ route('produk-tas.restore', $tas) }}" method="POST" class="d-inline">
+                    @method('PUT')
+                    @csrf
+                    <button type="submit" class="btn btn-warning btn-sm"
+                        onclick="return confirm('ANDA YAKIN ingin mengembalikan data ini?')">Restore</button>
+                </form>
             </li>
         @empty
-            <li class="list-group-item text-center text-muted">Tidak ada data di Trash.</li>
+            <li class="list-group-item text-center text-muted">Belum ada data produk tas.</li>
         @endforelse
     </ul>
-
-    {{ $datatas->links() }}
 </x-app>

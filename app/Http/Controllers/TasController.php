@@ -136,4 +136,11 @@ class TasController extends Controller
             'datatas' => Tas::onlyTrashed()->get(),
         ]);
 }
+public function restore(Tas $tas)
+    {
+        $tas->restore();
+
+        return redirect()->route('produk-tas.trash')
+            ->with('success', 'Data berhasil dikembalikan');
+    }
 }
