@@ -143,4 +143,11 @@ public function restore(Tas $tas)
         return redirect()->route('produk-tas.trash')
             ->with('success', 'Data berhasil dikembalikan');
     }
+public function forceDelete(Tas $tas)
+    {
+        $tas->forceDelete();
+
+        return redirect()->route('produk-tas.trash')
+            ->with('success', 'Data berhasil dihapus permanen');
+    }
 }

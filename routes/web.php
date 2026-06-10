@@ -22,6 +22,7 @@ Route::delete('/produk-tas1/{tas}',  [TasController::class, 'destroy'])->name('p
 //soft delete
 Route::get('/produk-tas1/trash', [TasController::class, 'trash'])->name('produk-tas.trash');
 Route::put('/produk-tas1/restore/{tas}', [TasController::class, 'restore'])->name('produk-tas.restore')->withTrashed();
+Route::put('/produk-tas1/force-delete/{tas}', [TasController::class, 'forceDelete'])->name('produk-tas.force-delete')->withTrashed();
 
 
 Route::resource('pembeli', PembeliController::class);

@@ -27,6 +27,13 @@
                     <button type="submit" class="btn btn-warning btn-sm"
                         onclick="return confirm('ANDA YAKIN ingin mengembalikan data ini?')">Restore</button>
                 </form>
+                <form action="{{ route('produk-tas.force-delete', $tas) }}" method="POST" class="d-inline">
+                    @method('PUT')
+                    @csrf
+                    <button type="submit" class="btn btn-danger btn-sm"
+                        onclick="return confirm('ANDA YAKIN ingin menghapus data ini secara permanen?')">Force
+                        Delete</button>
+                </form>
             </li>
         @empty
             <li class="list-group-item text-center text-muted">Belum ada data produk tas.</li>
