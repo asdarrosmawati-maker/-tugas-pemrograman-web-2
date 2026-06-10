@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
     'jenis',
     'harga',
     'stok',
-    'keterangan',
+    'keterangan'
 ])]
 class Tas extends Model
 {
