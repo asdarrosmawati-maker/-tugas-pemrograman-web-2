@@ -15,27 +15,20 @@
 
     {{-- Data Transaksi --}}
     <h4 class="mt-4">Data Transaksi</h4>
-    @if ($transaksis->isEmpty())
-        <div class="alert alert-info">Tidak ada transaksi untuk pembeli ini.</div>
-    @else
-        <ul class="list-group mb-3">
-            @foreach ($transaksis as $transaksi)
-                <li class="list-group-item">
-                    <strong>{{ $transaksis->firstItem() + $loop->index }}.</strong>
-                    Kode: {{ $transaksi->kode_transaksi }} |
-                    Tanggal: {{ \Carbon\Carbon::parse($transaksi->tanggal_transaksi)->format('d F Y') }} |
-                    Jumlah: {{ $transaksi->jumlah_barang }} |
-                    Harga: Rp{{ number_format($transaksi->total_harga, 0, ',', '.') }}
-                    <br>
-                    <a href="{{ route('transaksi.show', $transaksi) }}" class="btn btn-xs btn-info">Detail</a>
-                    <a href="{{ route('transaksi.edit', $transaksi) }}" class="btn btn-xs btn-warning">Edit</a>
-                </li>
-            @endforeach
-        </ul>
+    <ul class="list-group mb-3">
+        @foreach ($transaksis as $transaksi)
+            <li class="list-group-item">
+                <strong>{{ $transaksis->firstItem() + $loop->index }}.</strong>
+                Kode: {{ $transaksi->kode_transaksi }} |
+                Tanggal: {{ \Carbon\Carbon::parse($transaksi->tanggal_transaksi)->format('d F Y') }} |
+                Jumlah: {{ $transaksi->jumlah_barang }} |
+                Harga: Rp{{ number_format($transaksi->total_harga, 0, ',', '.') }}
+            </li>
+        @endforeach
+    </ul>
 
-        {{-- Pagination --}}
-        <div class="mt-3">
-            {{ $transaksis->links() }}
-        </div>
-    @endif
+    {{-- Pagination --}}
+    <div class="mt-3">
+        {{ $transaksis->links() }}
+    </div>
 </x-app>

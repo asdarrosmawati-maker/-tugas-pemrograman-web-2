@@ -10,9 +10,9 @@ class TransaksiController extends Controller
 {
     public function index(Request $request)
     {
-    
-    $transaksis = Transaksi::with('pembeli')->latest();
-        $keyword = request('keyword'); // ambil input dari form
+        $transaksis = Transaksi::with('pembeli')->latest();
+        $keyword = $request->input('keyword'); // ambil input dari form
+        $pembeliId = $request->input('pembeli_id');
 
         if (!empty($keyword)) {
             $transaksis->where(function ($query) use ($keyword) {
@@ -23,9 +23,14 @@ class TransaksiController extends Controller
             });
         }
 
+        if (!empty($pembeliId)) {
+            $transaksis->where('pembeli_id', $pembeliId);
+        }
+
         return view('transaksi.index', [
             'title' => 'Transaksi',
-            'transaksis' => $transaksis->paginate(5)->withQueryString(),
+            'pembeli' => Pembeli::all(),
+            'transaksis' => $transaksis->paginate(15)->withQueryString(),
         ]);
     }
     /**

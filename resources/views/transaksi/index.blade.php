@@ -19,10 +19,26 @@
     @endif
     <a class="btn btn-primary mb-3" href="{{ route('transaksi.create') }}" role="button">CREATE</a>
     <!-- Form pencarian transaksi -->
-    <form action="{{ route('transaksi.index') }}" method="GET" class="mb-3">
-        <input type="text" name="keyword" placeholder="Search transaksi..." value="{{ request('keyword') }}"
-            class="form-control d-inline w-50">
-        <button type="submit" class="btn btn-success">Search</button>
+    <form action="{{ route('transaksi.index') }}" method="GET" class="mb-3 row gx-2 gy-2 align-items-center">
+        <div class="col-sm-5">
+            <input type="text" name="keyword" id="keyword" placeholder="Search transaksi..."
+                value="{{ request('keyword') }}" class="form-control">
+        </div>
+
+        <div class="col-sm-auto">
+            <select name="pembeli_id" id="pembeli_id" class="form-select">
+                <option value="">All Pembeli</option>
+                @foreach ($pembeli as $item)
+                    <option value="{{ $item->id }}" {{ request('pembeli_id') == $item->id ? 'selected' : '' }}>
+                        {{ $item->nama }}
+                    </option>
+                @endforeach
+            </select>
+        </div>
+
+        <div class="col-sm-auto">
+            <button type="submit" class="btn btn-success">Search</button>
+        </div>
     </form>
 
     @if ($transaksis->isEmpty())
